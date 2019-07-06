@@ -7,7 +7,7 @@
         <div class="recommend">
             <el-row type="flex" class="row-bg" justify="space-between">
              <el-col :span="6"><div class="recom">推荐攻略</div></el-col>                      
-            <el-col :span="6"><el-button type="primary"  icon="el-icon-edit" >写游记</el-button></el-col>
+            <el-col :span="6"><el-button type="primary"  icon="el-icon-edit" @click="handleToCreate">写游记</el-button></el-col>
             </el-row>
                
                
@@ -16,6 +16,20 @@
        
     </div>
 </template>
+
+<script>
+export default {
+    
+    methods:{
+        handleToCreate(){           
+            this.$router.push({
+                path: "/post/create",
+            })
+        }
+    }
+}
+</script>
+
 
 <style>
 .searchbox{
