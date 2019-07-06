@@ -1,8 +1,8 @@
 <template>
     <el-container>
         <el-main>
-            <p style="font-size:24px; ">发表新攻略</p>
-            <p style="font-size: 12px; color:#ccc; padding: 10px 0px;">分享你的个人游记，让更多人看到哦！</p>
+            <p id="fabiao">发表新攻略</p>
+            <p id="jianshu">分享你的个人游记，让更多人看到哦！</p>
             <el-input v-model="input" placeholder="请输入标题"></el-input>
             <div id="app">
                 <VueEditor :config="config" ref="vueEditor" style="height: 400px;"/>
@@ -14,7 +14,7 @@
         </el-main>
         <el-aside width="200px">
             <div id="drafts">
-                <p style="float: left; padding-left: 10px;">草稿箱（0）</p>
+                <p id="caogao">草稿箱（0）</p>
             </div>
         </el-aside>
     </el-container>
@@ -111,6 +111,16 @@ body > .el-container {
     margin-bottom: 40px;
 }
 
+#fabiao{
+    font-size:24px;
+}
+
+#jianshu{
+    font-size: 12px;
+    color:#ccc;
+    padding: 10px 0px;
+}
+
 #app{
     margin:20px 0px;
     height: 450px;
@@ -121,6 +131,11 @@ body > .el-container {
     margin-top: 20px;
     height: 30px;
     width: 50px;
+}
+
+#caogao{
+    float: left;
+    padding-left: 10px;
 }
 
 #drafts{
