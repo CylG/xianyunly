@@ -8,6 +8,7 @@
                 <el-breadcrumb-item><a href="/post/detail">攻略详情</a></el-breadcrumb-item>
             </el-breadcrumb>
 
+            <div id="main" ></div>
             <h1 id="biaoti">塞班贵？一定是你的打开方式不对！6000块玩转塞班</h1>
 
             <div>
@@ -21,7 +22,7 @@
                     <i class="el-icon-edit-outline" id="tb1"></i>
                     <p id="tb2">评论(0)</p>
                 </div>
-                <div id="tb">
+                <div id="tb" @click="onCollection">
                     <i class="el-icon-star-off" id="tb1"></i>
                     <p style="font-size: 14px; color: #666">收藏</p>
                 </div>
@@ -29,7 +30,7 @@
                     <i class="el-icon-share" id="tb1"></i>
                     <p id="tb2">分享</p>
                 </div>
-                <div id="tb">
+                <div id="tb" @click="onLike">
                     <i class="el-icon-thumb" id="tb1"></i>
                     <p id="tb2">点赞(0)</p>
                 </div>
@@ -110,6 +111,7 @@ export default {
     },
     data() {
         return {
+            main: [],
             textarea: '',
             dialogImageUrl: '',
             dialogVisible: false,
@@ -146,7 +148,17 @@ export default {
                 }
             ]
         };
-    }
+    },
+    mounted(){
+        // 请求接口
+        this.$axios({
+            url: "/posts",
+            method: "GET"
+        }).then(res => {
+            const {data} = res.data;
+            this.main = data;
+        });
+    },
 }
 </script>
 

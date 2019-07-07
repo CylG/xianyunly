@@ -8,7 +8,7 @@
                 <VueEditor :config="config" ref="vueEditor" style="height: 400px;"/>
             </div>
             选择城市    <el-input v-model="input" placeholder="请搜索游玩城市" style="width: 200px;"></el-input><br>
-            <el-button type="primary">发布</el-button>
+            <el-button type="primary" @click="onRelease">发布</el-button>
             或者
             <el-link type="warning">保存到草稿</el-link>
         </el-main>
@@ -79,7 +79,7 @@ export default {
 
                     },
                     uploadSuccess(res, insert){
-                    insert("http://localhost:1337" + res.data[0].url)
+                        insert("http://localhost:1337" + res.data[0].url)
                     },
                     uploadError(){},
                 }
@@ -89,6 +89,30 @@ export default {
     components: {
         VueEditor
     },
+    methods: {
+        onRelease(){
+            // 提交到添加商品的接口
+            this.$axios({
+                url: "/posts",
+                method: "POST",
+                data: this.form,
+                // 处理session跨域
+                withCredentials: true
+            }).then(res => {
+                const {status, message} = res.data;
+
+                if(status === 0){
+                    // 成功的提示
+                    this.$message.success(message);
+                    // 返回上一页
+                    this.$router.back();
+                }else{
+                    // 跳转到登录页
+                    this.$router.push("/login");
+                }
+            })
+        }
+    }
 }
 </script>
 
