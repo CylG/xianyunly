@@ -55,7 +55,8 @@
     .item2{
         width: 350px;
         height: 38px;
-        line-height: 38px;       
+        line-height: 38px; 
+        cursor:pointer;      
     }
     .list{
         visibility: hidden; 
@@ -74,7 +75,7 @@
     }
     .item1:hover .list{
          visibility: visible;
-    }
+    }    
     
     .arrow{
         margin-left:140px;
