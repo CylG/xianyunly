@@ -9,8 +9,8 @@
      <el-col :span="24">
           <div class="recom-hot">推荐：
               <span class="gz" @click="handleToGz">广州</span>
-              <a href="">上海</a>
-              <a href="">北京</a>
+              <span class="sh" @click="handleToSh">上海</span>
+              <span class="bj" @click="handleToBj">北京</span>          
           </div>
      </el-col>
     </el-row>      
@@ -36,8 +36,7 @@ export default {
             })
         },
 
-        handleToGz(){
-            console.log(456)
+        handleToGz(){           
             this.toCity = '广州';
             this.$router.push({
                 path:'/post',
@@ -46,9 +45,34 @@ export default {
                 url:'/posts',
                 params:{city:'广州'}
             }).then(res=>{
-                const citydata=res.data;
-                console.log(citydata)
-                this.$emit('handleToGz',citydata)
+                const citydata = res.data;               
+                this.$emit('handleToCity',citydata)
+            })
+        },
+              handleToSh(){           
+            this.toCity = '上海';
+            this.$router.push({
+                path:'/post',
+            });
+            this.$axios({
+                url:'/posts',
+                params:{city:'上海'}
+            }).then(res=>{
+                const citydata = res.data;               
+                this.$emit('handleToCity',citydata)
+            })
+        },
+              handleToBj(){           
+            this.toCity = '北京';
+            this.$router.push({
+                path:'/post',
+            });
+            this.$axios({
+                url:'/posts',
+                params:{city:'北京'}
+            }).then(res=>{
+                const citydata = res.data;               
+                this.$emit('handleToCity',citydata)
             })
         },
         
@@ -89,7 +113,25 @@ export default {
 }
 .recom-hot{
     font-size:12px;
-}   
+     color: #747474;
+     margin-top:10px;
+} 
+.gz:hover{
+     cursor:pointer; 
+    text-decoration: underline ;
+    color: #FEA410;
+}
+.sh:hover{
+     cursor:pointer; 
+    text-decoration: underline ;
+    color: #FEA410;
+}
+.bj:hover{
+     cursor:pointer; 
+    text-decoration: underline ;
+    color: #FEA410;
+}
+
 
 </style>
 

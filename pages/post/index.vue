@@ -1,11 +1,11 @@
 <template>
   <el-container>
     <el-aside width="430px">
-      <Nav @handleToGz='handleToGz'/>
+      <Nav @handleToCity='handleToCity'/>
     </el-aside>
     <el-main>
-      <Search @handleToGz='handleToGz' />
-      <el-row class="recom-post" v-for='(item,index) in data' :key='index'>
+      <Search @handleToCity='handleToCity' />
+      <el-row class="recom-post" v-for='(item,index) in dataList' :key='index'>
         <el-row type="flex" class="post-title" >
           <el-col :span="24" >
             <div  @click="handleToDetail(item.id)">{{item.title}} </div>
@@ -25,7 +25,16 @@
           <el-col :span="4">by<i class="el-icon-user"></i>{{item.account.nickname}}</el-col>
           <el-col :span="4"><i class="el-icon-s-custom"></i>{{item.watch}}</el-col> 
       </el-row>        
-      </el-row>   
+      </el-row> 
+      <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="pageIndex"
+          :page-sizes="[1, 3, 6, 12]"
+          :page-size="pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total">
+        </el-pagination>  
     </el-main>
   </el-container>
 </template>
@@ -43,6 +52,11 @@ export default {
    data(){
         return {         
             data: [],
+            
+             pageIndex: 1,   // 默认显示第一页
+             pageSize: 3,    // 默认显示多少条数据
+             total: 0,       // 总条数
+             dataList: []    // 分页之后的数据列表
         }   
     },
 
@@ -51,9 +65,14 @@ export default {
       url: "/posts",
       method: "GET"
     }).then(res => {
-      const {data} = res.data;
-      this.data = data
-    
+      const {data} = res.data;    
+      this.data = data;     
+      // 总条数
+      this.total = res.data.total;
+      // 初始化数据
+      this.pageIndex = 1;      
+      // 获取第1-3条
+      this.dataList = this.data.slice(0, 3);    
     });
   },
   
@@ -68,15 +87,33 @@ export default {
             })
           },
         
-        handleToGz(gz){
-          const {data} = gz
-          this.data = data;
-          console.log(this.data)
-        }
-          
+        handleToCity(city){
+          const {data} = city
+          console.log(city)
+          this.data = data;           
+            // 总条数
+           this.total = city.total;
+           // 初始化数据
+           this.pageIndex = 1;      
+           // 获取第1-3条
+           this.dataList = this.data.slice(0, 3);   
+             },
+        
+        // 分页切换条数触发
+        handleSizeChange(value){
+            this.pageSize = value;
         },
+        
+        // 页数切换时候触发
+        handleCurrentChange(value){
+            this.pageIndex = value;
+            this.dataList = this.data.slice(
+              (this.pageIndex - 1) * this.pageSize,(this.pageIndex*this.pageSize)
+            )            
+        },
+     },
 
-};
+}
 </script>
 
 <style>

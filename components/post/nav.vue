@@ -4,15 +4,16 @@
                 <i class="el-icon-arrow-right arrow"></i>
             <ul class="list">
                 <li class="item2" v-for="(item2,index) in item1.children" :key='index'>
-                    <span @click="handleToBj(item2.city)">{{index+1}}</span>
-                    <span>{{item2.city}}</span>)
-                    <span>{{item2.desc}}</span>
+                    <span class="index" @click="handleTo(item2.city)"> {{index+1}} </span>
+                    <span class="city" @click="handleTo(item2.city)"> {{item2.city}} </span>
+                    <span class="desc" @click="handleTo(item2.city)"> {{item2.desc}} </span>
                 </li>                        
             </ul>
-        </div>         
-  
-    <div class="city">推荐城市</div>
-    <div></div>
+        </div>    
+    <div class="recom-city">推荐城市</div>
+    <div>
+        <img class="recom-pic" src="/images/pic_sea.jpeg" alt="" @click="handlePic">
+    </div>
 </div>
 </template>
 
@@ -34,8 +35,7 @@
         })
     },
     methods:{
-        handleToBj(id){   
-            console.log(123)           
+        handleTo(id){                     
             this.$router.push({
                 path:'/post',
                 query:{city:id}
@@ -44,11 +44,16 @@
                 url:'/posts',
                 params:{city:id}
             }).then(res=>{
-                const citydata = res.data;
-                console.log(res.data)
-                this.$emit('handleToGz',citydata)
+                const citydata = res.data;               
+                this.$emit('handleToCity',citydata)
             })
         },
+
+        handlePic(){
+            this.$router.push({
+                path:'/post#'
+            })
+        }
         
         },
     
@@ -75,7 +80,7 @@
         width: 350px;
         height: 38px;
         line-height: 38px; 
-        cursor:pointer;      
+            
     }
     .list{
         visibility: hidden; 
@@ -94,26 +99,43 @@
     }
     .item1:hover .list{
          visibility: visible;
-    }    
-    
+    }     
     .arrow{
         margin-left:140px;
     }
     div:nth-child(4){
         border-bottom:1px solid #DCDCDC;
     }
-    span:nth-child(1){
-        font-size: 20px;
-        margin:0 10px;
-    }
-    span:nth-child(3){
-        color: #989898;
-        margin-left: 10px;
+    .index{
+        font-size: 20px;      
     }
     .city{
+        margin:0 5px;
+    }
+    .desc{
+        color: #747474;
+    }
+    .city:hover{
+        cursor:pointer; 
+        text-decoration: underline ;
+    }
+    .desc:hover{
+         cursor:pointer; 
+        text-decoration: underline ;
+    }
+    .recom-city{
         width: 260px;
         height: 30px;
-        border-bottom:1px solid #DCDCDC;
         padding-top:20px;
+        margin-bottom: 10px;
+        border-bottom:1px solid #DBDBDB;
+        
+    }
+    .recom-pic{
+        width: 260px;
+        height: 175px;
+    }
+    .recom-pic:hover{
+        cursor:pointer; 
     }
  </style>
