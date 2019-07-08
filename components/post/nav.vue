@@ -4,8 +4,8 @@
                 <i class="el-icon-arrow-right arrow"></i>
             <ul class="list">
                 <li class="item2" v-for="(item2,index) in item1.children" :key='index'>
-                    <span>{{index+1}}</span>
-                    <span>{{item2.city}}</span>
+                    <span @click="handleToBj(item2.city)">{{index+1}}</span>
+                    <span>{{item2.city}}</span>)
                     <span>{{item2.desc}}</span>
                 </li>                        
             </ul>
@@ -32,7 +32,26 @@
              const {data} = res.data
              this.data = data;  
         })
-    }
+    },
+    methods:{
+        handleToBj(id){   
+            console.log(123)           
+            this.$router.push({
+                path:'/post',
+                query:{city:id}
+            });
+            this.$axios({
+                url:'/posts',
+                params:{city:id}
+            }).then(res=>{
+                const citydata = res.data;
+                console.log(res.data)
+                this.$emit('handleToGz',citydata)
+            })
+        },
+        
+        },
+    
   }
 </script>
 

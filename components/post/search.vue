@@ -2,13 +2,13 @@
 <el-row class="searchbox">
     <el-row type="flex" > 
      <el-col :span="24">
-       <input type="text" placeholder="请输入想去的地方，例如：广州" class="search"><i class="el-icon-search icon"></i>
+       <input type="text" :value="toCity" placeholder="请输入想去的地方，例如：广州" class="search"><i class="el-icon-search icon"></i>
      </el-col>
     </el-row>
     <el-row type="flex" > 
      <el-col :span="24">
           <div class="recom-hot">推荐：
-              <a href="">广州</a>
+              <span class="gz" @click="handleToGz">广州</span>
               <a href="">上海</a>
               <a href="">北京</a>
           </div>
@@ -23,14 +23,37 @@
 
 <script>
 export default {
+    data(){
+        return {
+            toCity:'',
+        }
+    },
     
     methods:{
         handleToCreate(){           
             this.$router.push({
                 path: "/post/create",
             })
-        }
-    },     
+        },
+
+        handleToGz(){
+            console.log(456)
+            this.toCity = '广州';
+            this.$router.push({
+                path:'/post',
+            });
+            this.$axios({
+                url:'/posts',
+                params:{city:'广州'}
+            }).then(res=>{
+                const citydata=res.data;
+                console.log(citydata)
+                this.$emit('handleToGz',citydata)
+            })
+        },
+        
+    },  
+
 }
 </script>
 

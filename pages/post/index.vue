@@ -1,10 +1,10 @@
 <template>
   <el-container>
     <el-aside width="430px">
-      <Nav />
+      <Nav @handleToGz='handleToGz'/>
     </el-aside>
     <el-main>
-      <Search />
+      <Search @handleToGz='handleToGz' />
       <el-row class="recom-post" v-for='(item,index) in data' :key='index'>
         <el-row type="flex" class="post-title" >
           <el-col :span="24" >
@@ -66,7 +66,14 @@ export default {
                     id:itemId,                 
                 }
             })
-          }    
+          },
+        
+        handleToGz(gz){
+          const {data} = gz
+          this.data = data;
+          console.log(this.data)
+        }
+          
         },
 
 };
