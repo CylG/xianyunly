@@ -114,7 +114,7 @@ export default {
                 this.pageIndex = 1;
             }
 
-            // 计算截图列表的数据
+            // 计算分页列表的数据
             this.dataList = this.flightsData.flights.slice(
                 (this.pageIndex - 1) * this.pageSize,
                 this.pageIndex * this.pageSize
