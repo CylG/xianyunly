@@ -41,6 +41,9 @@
 </template>
 
 <script>
+import Nav from "@/components/post/nav.vue";
+import Search from "@/components/post/search.vue";
+
 export default {
     components: {
     Nav,
@@ -156,3 +159,4 @@ export default {
   font-size: 14px;
 }
 </style>
+
