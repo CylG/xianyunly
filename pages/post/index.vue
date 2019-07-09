@@ -22,7 +22,7 @@
         </el-row>
         <el-row >
           <el-col :span="2"><i class="el-icon-location-outline"></i>{{item.cityName}}</el-col>
-          <el-col :span="4">by<i class="el-icon-user"></i><span class="name">{{item.account.nickname}}</span></el-col>
+          <el-col :span="4">by<i class="el-icon-user"></i><span class="name" @click="handlePersonal">{{item.account.nickname}}</span></el-col>
           <el-col :span="17"><i class="el-icon-s-custom"></i>{{item.watch}}</el-col>
            <el-col :span="1"><span class="like">{{item.like}} 赞</span> </el-col>  
       </el-row>        
@@ -112,6 +112,10 @@ export default {
               (this.pageIndex - 1) * this.pageSize,(this.pageIndex*this.pageSize)
             )            
         },
+        handlePersonal(){
+          this.$router.push("/user/personal");
+         
+        }
      },
 
 }
@@ -153,6 +157,9 @@ export default {
 .name{
   color:#FEA410;
   font-size: 12px;
+}
+.name:hover{
+   cursor:pointer;
 }
 .like{
   color: #FEA410;
